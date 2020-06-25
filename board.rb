@@ -26,8 +26,10 @@ class Board
         row, col = pos
         if @grid[row][col].value == "" || @grid[row][col].value == "X"
         @grid_play[row][col] = "X"
+        "X"
         else
             @grid_play[row][col] = "B"
+            "B"
         end
     end
 

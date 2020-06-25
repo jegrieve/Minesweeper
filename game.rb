@@ -12,7 +12,7 @@ class Game
         #Get position
         #If bomb, game over, else continue
         #keep going until bomb or all non-bomb spaces cleared.
-        until complete? #all positions that are non-bombs are filled
+        until game_complete? #all positions that are non-bombs are filled
 
 
         end
@@ -32,8 +32,30 @@ class Game
         @board.set_pos(pos)
     end
 
-    def complete?
-        @board.complete?
+    def game_complete?
+        @board.complete?(game_tile_count)
+    end
+
+    def game_tile_count
+        count = 0
+        @board.grid_play.each do |row|
+            row.each do |tile|
+                count += 1 if tile == "X"
+            end
+        end
+        count
+    end
+
+    def bomb?(pos)
+        return true if place(pos) == "B"
+        false
+    end
+
+    def valid_pos?(pos)
+        row, col = pos
+        valid_indexes = (0..8).to_a
+        return false if !valid_indexes.include?(row) || !valid_indexes.include?(col)
+        true
     end
 
 end
@@ -41,4 +63,7 @@ end
 g = Game.new
 g.board.populate
 g.place([0,0])
-g.display
+p g.bomb?([0,0])
+ g.display
+p g.game_tile_count
+p g.valid_pos?([1,1])
