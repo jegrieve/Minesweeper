@@ -4,7 +4,7 @@ class Player
     end
 
     def get_input
-        #please enter position ex: 0 0
-        pos = gets.chomp.split("").map(&:to_i)
+        puts "#{@name} please enter an input. (Ex: 0 0 for first position)"
+        pos = gets.chomp.split(" ").map(&:to_i)
     end
 end 

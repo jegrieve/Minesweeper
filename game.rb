@@ -13,7 +13,20 @@ class Game
         #If bomb, game over, else continue
         #keep going until bomb or all non-bomb spaces cleared.
         until game_complete? #all positions that are non-bombs are filled
+            display
+            pos = @player.get_input
 
+            while !valid_pos?(pos)
+                puts "not valid (0-8 only)"
+                pos = @player.get_input
+            end
+
+            place(pos)
+             if bomb?(pos)
+                display
+                lose
+                return
+             end
 
         end
         puts "You win!"
@@ -22,6 +35,10 @@ class Game
         #get input from user GET_INPUT ON PLAYER.RB
         #if user input is on BOMB, game over!
         # if user input is not on bomb, clear all areas before bomb.
+    end
+
+    def lose
+        puts "you lose!!" 
     end
 
     def display
@@ -58,12 +75,10 @@ class Game
         true
     end
 
+        #to-do:
+    #counts on adjacent bombs
+    #number on tiles next to adjacent bombs
+    #flagging
 end
 
-g = Game.new
-g.board.populate
-g.place([0,0])
-p g.bomb?([0,0])
- g.display
-p g.game_tile_count
-p g.valid_pos?([1,1])
+Game.new.run
