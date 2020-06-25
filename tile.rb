@@ -3,4 +3,5 @@ class Tile
     def initialize
         @value = ""
     end
+    #access to adjacent tiles
 end
