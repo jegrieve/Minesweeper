@@ -54,8 +54,53 @@ class Board
         row, col = pos
         @grid_play[row][col] = "F"
     end
+
+    def adjacent_tiles(pos)
+        count = 0
+        row, col = pos
+        tile = @grid[row][col] #now we have acess to a tile instance
+        if count > 0
+            tile.count = count
+        end
+
+
+        #gonna check all possible tiles adj to the specific tile
+        count += left?(pos)
+        count += right?(pos)
+        count += up?(pos)
+        count += down?(pos)
+        p tile.count
+    end
+
+    def left?(pos)
+        row, col = pos
+        
+
+        count
+    end
+
+    def right?(pos)
+        row, col = pos
+
+
+        count
+    end
+
+    def up?(pos)
+        row, col = pos
+
+
+        count   
+    end
+
+    def down?(pos)
+        row, col = pos
+
+
+        count
+    end
 end
 
 p = Board.new
-
+p.adjacent_tiles([0,0])
 

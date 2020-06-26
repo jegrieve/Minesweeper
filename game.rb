@@ -10,7 +10,6 @@ class Game
             #to-do:
     #counts on adjacent bombs
     #number on tiles next to adjacent bombs
-    #flagging
     #algorithm to clear all tiles not adjacent to other bombs
 
     def run
