@@ -7,34 +7,44 @@ class Game
         @player = Player.new(name)
     end
 
+            #to-do:
+    #counts on adjacent bombs
+    #number on tiles next to adjacent bombs
+    #flagging
+    #algorithm to clear all tiles not adjacent to other bombs
+
     def run
-        #V1
-        #Get position
-        #If bomb, game over, else continue
-        #keep going until bomb or all non-bomb spaces cleared.
-        until game_complete? #all positions that are non-bombs are filled
+        until game_complete?
             display
+            
+            input = @player.choose_input
+
             pos = @player.get_input
+            
+            while !valid_input?(input)
+                puts "not valid (P or F only)"
+                input = @player.choose_input
+            end
 
             while !valid_pos?(pos)
                 puts "not valid (0-8 only)"
                 pos = @player.get_input
             end
 
+            if input == "P"
             place(pos)
+            else 
+                flag(pos)
+            end
+            if input != "F"
              if bomb?(pos)
                 display
                 lose
                 return
              end
-
+            end
         end
         puts "You win!"
-        #V1 just select positions and if not bomb, then keep going until bomb or all squares are filled except bombs.
-        #show board  DISPLAY ON GAME.RB
-        #get input from user GET_INPUT ON PLAYER.RB
-        #if user input is on BOMB, game over!
-        # if user input is not on bomb, clear all areas before bomb.
     end
 
     def lose
@@ -43,6 +53,10 @@ class Game
 
     def display
         @board.display
+    end
+
+    def flag(pos)
+        @board.set_flag(pos)
     end
 
     def place(pos) #ex [0,0]
@@ -75,10 +89,12 @@ class Game
         true
     end
 
-        #to-do:
-    #counts on adjacent bombs
-    #number on tiles next to adjacent bombs
-    #flagging
+    def valid_input?(input)
+        valid_inputs = ["P","F"]
+        return false if !valid_inputs.include?(input.upcase)
+        true
+    end
+
 end
 
 Game.new.run
