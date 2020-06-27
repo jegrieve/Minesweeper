@@ -8,7 +8,8 @@ class Game
     end
 
             #to-do:
-    #counts on adjacent bombs
+    #Refactor for V2 of board 
+    #Instead of placing X, place tile.count. If tile.count == 0 then we place an X. Board should have number on each tile for V2.
     #number on tiles next to adjacent bombs
     #algorithm to clear all tiles not adjacent to other bombs
 

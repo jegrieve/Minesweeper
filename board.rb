@@ -58,8 +58,7 @@ class Board
     def adjacent_tiles(pos)
         count = 0
         row, col = pos
-        tile = @grid[row][col] #now we have acess to a tile instance
-        #gonna check all possible tiles adj to the specific tile
+        tile = @grid[row][col] 
         count += left?(pos)
         count += right?(pos)
         count += up?(pos)
@@ -94,7 +93,7 @@ class Board
         count = 0
         row, col = pos
         return 0 if row == 0
-        upper = row + 1
+        upper = row - 1
         count += 1 if @grid[upper][col].value == "B"
         count += left?([upper, col])
         count += right?([upper, col])
@@ -105,7 +104,7 @@ class Board
         count = 0
         row, col = pos
         return 0 if row == 8
-        lower= row - 1
+        lower= row + 1
         count += 1 if @grid[lower][col].value == "B"
         count += left?([lower, col])
         count += right?([lower, col])
@@ -119,5 +118,5 @@ class Board
 end
 
 p = Board.new
-p.adjacent_tiles([1,1])
+p.adjacent_tiles([0,8])
 
