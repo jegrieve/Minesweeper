@@ -69,24 +69,33 @@ class Board
         count += right?(pos)
         count += up?(pos)
         count += down?(pos)
+        tile.count = count
         p tile.count
     end
 
     def left?(pos)
+        count = 0
         row, col = pos
-        
-
+        left = col - 1
+        if valid_pos?([row, left])
+            count += 1 if @grid[row][left].value == "B"
+        end
         count
     end
 
     def right?(pos)
+        count = 0
         row, col = pos
-
-
+        right = col + 1
+        if valid_pos?([row, right])
+            count += 1 if @grid[row][right].value == "B"
+        end
         count
     end
 
     def up?(pos)
+        count = 0
+
         row, col = pos
 
 
@@ -94,10 +103,17 @@ class Board
     end
 
     def down?(pos)
+        count = 0
+
         row, col = pos
 
 
         count
+    end
+
+    def valid_pos?(pos)
+        row, col = pos
+        @grid[row][col] != nil
     end
 end
 
