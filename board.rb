@@ -24,9 +24,10 @@ class Board
 
     def set_pos(pos)
         row, col = pos
-        if @grid[row][col].value == " " || @grid[row][col].value == "X"
-        @grid_play[row][col] = "X"
-        "X"
+        if @grid[row][col].value == " " && @grid[row][col].count == 0
+            @grid_play[row][col] = "X"
+        elsif @grid[row][col].value == " " && @grid[row][col].count != 0
+            @grid_play[row][col] = "#{@grid[row][col].count}"
         else
             @grid_play[row][col] = "B"
             "B"
@@ -64,7 +65,6 @@ class Board
         count += up?(pos)
         count += down?(pos)
         tile.count = count
-        p tile.count
     end
 
     def left?(pos)
@@ -117,6 +117,8 @@ class Board
     end
 end
 
-p = Board.new
-p.adjacent_tiles([0,8])
+# p = Board.new
+# p.display
+# p = Board.new
+# p.adjacent_tiles([0,8])
 
