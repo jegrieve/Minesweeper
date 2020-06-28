@@ -38,22 +38,62 @@ class Board
     def set_adjacent(pos)
         row, col = pos
         @grid[row][col]
+        # adj_left(pos)
+        # adj_right(pos)
+        # adj_up(pos)
+        # adj_down(pos)
     end
 
     def adj_left(pos)
-
+        row, col = pos
+        left = col - 1
+        if valid_pos?([row, left])
+             if adjacent_tiles([row, left]) == 0
+                @grid_play[row][left] = "X"
+                adj_left([row,left]) #keep going left
+             else
+                @grid_play[row][left] = "#{@grid[row][left].count}"
+             end
+        end
     end
 
-    def adj_left(pos)
-
+    def adj_right(pos)
+        row, col = pos
+        right = col + 1
+        if valid_pos?([row, right])
+             if adjacent_tiles([row, right]) == 0
+                @grid_play[row][right] = "X"
+                adj_right([row,right]) #keep going right
+             else
+                @grid_play[row][right] = "#{@grid[row][right].count}"
+             end
+        end
     end
 
     def adj_up(pos)
-
+        row, col = pos
+        up = row - 1
+        if valid_pos?([up, col])
+            if adjacent_tiles([up, col]) == 0
+               @grid_play[up][col] = "X"
+               #need to check up first, then up left keep going up right keep going
+            else
+               @grid_play[up][col] = "#{@grid[up][col].count}"
+            end
+       end
     end
 
     def adj_down(pos)
-
+        row, col = pos
+        down = row + 1
+        if valid_pos?([down, col])
+            if adjacent_tiles([down, col]) == 0
+               @grid_play[down][col] = "X"
+               #need to check down first, then down left keep going down right keep going
+            else
+               @grid_play[down][col] = "#{@grid[down][col].count}"
+            end
+       end
     end
 
 
@@ -95,6 +135,7 @@ class Board
         count += up?(pos)
         count += down?(pos)
         tile.count = count
+        count
     end
 
     def left?(pos)
