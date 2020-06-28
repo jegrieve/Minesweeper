@@ -2,7 +2,7 @@ require_relative "tile.rb"
 class Board
     attr_accessor :grid, :grid_play
     def initialize
-        @grid = Array.new(9) {Array.new(9, Tile.new)}
+        @grid = Array.new(9) {Array.new(9)}
         @grid_play = Array.new(9) {Array.new(9, " ")}
         populate
     end
@@ -17,6 +17,7 @@ class Board
         bombs = [" ","B"]
         @grid.each.with_index do |row,i1|
             row.each_with_index do |col,i2|
+                @grid[i1][i2] = Tile.new
                 @grid[i1][i2].value = bombs.sample
             end
         end
@@ -33,6 +34,35 @@ class Board
             "B"
         end
     end
+
+    def set_adjacent(pos)
+        row, col = pos
+        @grid[row][col]
+    end
+
+    def adj_left(pos)
+
+    end
+
+    def adj_left(pos)
+
+    end
+
+    def adj_up(pos)
+
+    end
+
+    def adj_down(pos)
+
+    end
+
+
+    #Todo
+    #Set_adjacent should set tiles around the set_tile
+    #If the adjacent_tile is anything other than 0 we put its count and stop
+    #If the adjacent_tile has a count of 0, we set as "X" and then set_adjacent to that tile
+    #**Also remember to stop set_adjacent from looking at previous set tiles,
+    #by making a requirement that @grid_play[pos] == " "
 
     def tile_count
         count = 0
