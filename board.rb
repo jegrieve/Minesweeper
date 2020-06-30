@@ -32,13 +32,16 @@ class Board
             @grid_play[row][col] = "B"
         end
     end
-    #TODO---
-    #test
-    #set adjacent counts
-    #set flag
-    #tile counts for game completion
-    #test
-    #work on game class
+
+    def add_tile_counts
+        @grid.each_with_index do |row,i1|
+            row.each_with_index do |col,i2|
+                if col.value != "B"
+                    adjacent_tiles([i1,i2])
+                end
+            end
+        end
+    end
 
     def adjacent_tiles(pos)
         row, col = pos
@@ -119,13 +122,74 @@ class Board
 
     def adj_left(pos)
         row, col = pos
-        #we'd run adjacent tiles on tile to left
+        return if col == 0
+        left = col - 1
+         if @grid[row][left].count == 0 && @grid[row][left].value == " " && @grid_play[row][left] == " "
+            set_pos([row, left])
+            set_adjacent([row,left])
+         elsif @grid[row][left].value == " " && @grid_play[row][left] == " "
+            set_pos([row, left])
+         end
     end
+
+    def adj_right(pos)
+        row, col = pos
+        return if col == 8
+        right = col + 1
+        if @grid[row][right].count == 0 && @grid[row][right].value == " " && @grid_play[row][right] == " "
+            set_pos([row, right])
+            set_adjacent([row,right])
+         elsif @grid[row][right].value == " " && @grid_play[row][right] == " "
+            set_pos([row, right])
+         end
+    end
+
+
+
+    def adj_up(pos)
+        row, col = pos
+        return if row == 0
+        up = row - 1
+        adj_upper([up,col])
+        adj_right([up,col])
+        adj_left([up,col])
+    end
+
+    def adj_upper(pos) 
+        row, col = pos
+        if @grid[row][col].count == 0 && @grid[row][col].value == " " && @grid_play[row][col] == " "
+            set_pos([row, col])
+            set_adjacent([row,col])
+         elsif @grid[row][col].value == " " && @grid_play[row][col] == " "
+            set_pos([row, col])
+         end
+    end
+
+    def adj_down(pos)
+        row, col = pos
+        return if row == 8
+        down = row + 1
+        adj_lower([down,col])
+        adj_right([down,col])
+        adj_left([down,col])
+    end
+
+    def adj_lower(pos) 
+        row, col = pos
+        if @grid[row][col].count == 0 && @grid[row][col].value == " " && @grid_play[row][col] == " "
+            set_pos([row, col])
+            set_adjacent([row,col])
+         elsif @grid[row][col].value == " " && @grid_play[row][col] == " "
+            set_pos([row, col])
+         end
+    end
+
+
 end
 
 g = Board.new
-g.adjacent_tiles([0,0])
-
-g.set_pos([0,0])
+g.add_tile_counts
+g.set_pos([4,4])
+g.set_adjacent([4,4])
 
 g.display
