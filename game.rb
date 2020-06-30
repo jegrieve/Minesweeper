@@ -20,7 +20,7 @@ class Game
             input = @player.choose_input
 
             pos = @player.get_input
-            @board.adjacent_tiles(pos)
+            @board.set_adjacent(pos)
             while !valid_input?(input)
                 puts "not valid (P or F only)"
                 input = @player.choose_input
