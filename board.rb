@@ -13,13 +13,14 @@ class Board
     end
 
     def populate
-        bombs = [" ", "B"]
+        bombs = [" ", " ", " ", " ", " ", " ", "B"]
         @grid.each_with_index do |row,i1|
             row.each_with_index do |col,i2|
                 @grid[i1][i2] = Tile.new
                 @grid[i1][i2].value = bombs.sample
             end
         end
+        add_tile_counts
     end
 
     def set_pos(pos)
@@ -184,12 +185,34 @@ class Board
          end
     end
 
+    def set_flag(pos)
+        row, col = pos
+        @grid_play[row][col] = "F"
+    end
+
+        #complete? method
+
+    def tile_count 
+        count = 0
+        @grid.each do |row|
+            row.each do |tile|
+            if tile.value == " "
+                count += 1
+            end
+        end
+        end
+        count
+    end
+
+    def complete?
+        count = 0
+        @grid_play.each do |row|
+            row.each do |col|
+                count += 1 if col != " "
+            end
+        end
+        count == tile_count
+    end
 
 end
 
-g = Board.new
-g.add_tile_counts
-g.set_pos([4,4])
-g.set_adjacent([4,4])
-
-g.display

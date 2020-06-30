@@ -13,3 +13,4 @@ class Player
         input = gets.chomp.upcase
     end
 end 
+
